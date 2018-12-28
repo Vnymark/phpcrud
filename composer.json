@@ -1,5 +1,9 @@
 {
     "require": {
         "twbs/bootstrap": "4.2.1"
+    },
+    "autoload": {
+        "psr-4": {"": "includes/classes/"}
     }
+
 }

@@ -1,4 +1,4 @@
-<?php require_once('templates/top.php');?>
+<?php require_once('templates/top.php'); ?>
 
 <div class="container">
     <div class="content-header">
@@ -6,28 +6,29 @@
     </div>
     <div class="inner-content">
         <form action="index.php" method="POST">
+
             <p>
-                <label for="firstname">Förnamn</label><br/>
+                <label for="firstname"><?php utf8_decode('Förnamn');?></label><br/>
                 <input type="text" name="firstname" id="firstname" required="required"
                        value="<?php echo isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : ''; ?>"/>
             </p>
             <p>
-                <label for="lastname">Efternamn</label><br/>
+                <label for="lastname"><?php utf8_decode('Efternamn');?></label><br/>
                 <input type="text" name="lastname" id="lastname" required="required"
                        value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : ''; ?>"/>
             </p>
             <p>
-                <label for="email">E-postadress</label><br/>
+                <label for="email"><?php utf8_decode('E-postadress');?></label><br/>
                 <input type="text" name="email" id="email" required="required"
                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"/>
             </p>
             <p>
-                <label for="ssn">Personnummer (exempel: ÅÅMMDDXXXX):</label><br/>
+                <label for="ssn"><?php utf8_decode('Personnummer (exempel: ÅÅMMDDXXXX):');?></label><br/>
                 <input type="text" id="ssn" name="ssn" maxlength="10"
                        value="<?php echo isset($_POST['ssn']) ? htmlspecialchars($_POST['ssn']) : ''; ?>"/>
             </p>
             <p>
-                <label for="phone">Telefonnummer</label><br/>
+                <label for="phone"><?php utf8_decode('Telefonnummer');?></label><br/>
                 <input type="tel" id="phone"
                        value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>"
                        name="phone"/>
