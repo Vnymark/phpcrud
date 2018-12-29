@@ -1,10 +1,4 @@
-<?php require('templates/top.php');
-use classes\Profile;
-use classes\Database;
-require 'includes/functions.php';
-$object = new Database();
-$conn = $object->connect();
-?>
+<?php require __DIR__ . '/templates/top.php'; ?>
 
 <div class="container">
     <div class="content-header">
@@ -18,7 +12,7 @@ $conn = $object->connect();
                 $_POST['lastname'] = trim($_POST['lastname']);
                 $_POST['email'] = trim($_POST['email']);
 
-                if (empty($_POST['firstname'] || !isValidName($_POST['firstname']))) {
+                if (empty($_POST['firstname']) || !isValidName($_POST['firstname'])) {
                     $errors[] = 'Du måste ange förnamn';
                 }
 
@@ -31,7 +25,7 @@ $conn = $object->connect();
                 }
 
                 if (empty($errors)) {
-                    $profile = new Profile($conn);
+                    $profile = new classes\Profile();
                     $profile->set('firstname',$_POST['firstname']);
                     $profile->set('lastname', $_POST['lastname']);
                     $profile->set('email', $_POST['email']);
@@ -50,27 +44,27 @@ $conn = $object->connect();
             }
             ?>
             <p>
-                <label for="firstname"><?php echo utf8_encode('Förnamn'); ?></label><br/>
+                <label for="firstname"><?php echo 'Förnamn'; ?></label><br/>
                 <input type="text" name="firstname" id="firstname" required="required"
                        value="<?php echo isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : ''; ?>"/>
             </p>
             <p>
-                <label for="lastname"><?php echo utf8_encode('Efternamn'); ?></label><br/>
+                <label for="lastname"><?php echo 'Efternamn'; ?></label><br/>
                 <input type="text" name="lastname" id="lastname" required="required"
                        value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : ''; ?>"/>
             </p>
             <p>
-                <label for="email"><?php echo utf8_encode('E-postadress'); ?></label><br/>
+                <label for="email"><?php echo 'E-postadress'; ?></label><br/>
                 <input type="text" name="email" id="email" required="required"
                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"/>
             </p>
             <p>
-                <label for="ssn"><?php echo utf8_encode('Personnummer (exempel: ÅÅMMDDXXXX):'); ?></label><br/>
+                <label for="ssn"><?php echo 'Personnummer (exempel: ÅÅMMDDXXXX):'; ?></label><br/>
                 <input type="text" id="ssn" name="ssn" maxlength="10"
                        value="<?php echo isset($_POST['ssn']) ? htmlspecialchars($_POST['ssn']) : ''; ?>"/>
             </p>
             <p>
-                <label for="phone"><?php echo utf8_encode('Telefonnummer'); ?></label><br/>
+                <label for="phone"><?php echo 'Telefonnummer'; ?></label><br/>
                 <input type="tel" id="phone"
                        value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>"
                        name="phone"/>
