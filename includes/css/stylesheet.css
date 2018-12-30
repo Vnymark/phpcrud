@@ -34,3 +34,9 @@ tr.title {
     border-radius: 8px;
     margin: 1px 5px 5px 5px;
 }
+
+@media (min-width: 1900px){
+    .container {
+        max-width: 1600px;
+    }
+}

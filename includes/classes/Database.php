@@ -72,4 +72,25 @@ class Database
             }
         }
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function delete($table, $id){
+        $this->conn = $this->connect();
+
+        if ($this->conn) {
+            try {
+                // sql to delete a record
+                $sql = "DELETE FROM " . $table . " WHERE id=" . $id;
+
+                // use exec() because no results are returned
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+                printf('<p class="success">Profilen togs bort!</p>');
+            } catch (\PDOException $e) {
+                echo $sql . "<br>" . $e->getMessage();
+            }
+        }
+    }
 }

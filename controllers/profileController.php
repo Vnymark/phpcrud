@@ -50,5 +50,13 @@
     } else {
         printf('<p class="error">%s</p>', implode('<br />', $errors));
     }
+} else if (isset($_POST['delete'])){
+    $profile = new classes\Profile();
+    try {
+        $profile->delete('profiles', $_POST['delete']);
+    } catch (Exception $e){
+        echo 'Could not delete the Profile:' . $e;
+    }
+
 }
 ?>

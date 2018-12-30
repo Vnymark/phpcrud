@@ -2,6 +2,7 @@
     <div class="row justify-content-md-center">
         <div class="col-md-auto center">
             <?php require_once __DIR__ . '/../includes/functions.php'; ?>
+            <?php require __DIR__ . '/../controllers/profileController.php'; ?>
             <?php
 
             /**
@@ -17,29 +18,31 @@
             } ?>
             <h1>Lista profiler</h1>
             <div class="table-responsive-lg">
-                <table class="table">
-                    <tr class="title">
-                        <td>Förnamn</td>
-                        <td>Efternamn</td>
-                        <td>E-postadress</td>
-                        <td>Telefonnummer</td>
-                        <td>Personnummer</td>
-                    </tr>
-                    <?php if (isset($profiles)): ?>
-                        <?php foreach ($profiles as $p): ?>
-                        <tr>
-                            <td><?php echo $p->firstname; ?></td>
-                            <td><?php echo $p->lastname; ?></td>
-                            <td><?php echo $p->email; ?></td>
-                            <td><?php echo $p->phone; ?></td>
-                            <td><?php echo $p->ssn; ?></td>
+                <form action="index.php" method="POST">
+                    <table class="table">
+                        <tr class="title">
+                            <td>Förnamn</td>
+                            <td>Efternamn</td>
+                            <td>E-postadress</td>
+                            <td>Telefonnummer</td>
+                            <td>Personnummer</td>
+                            <td></td>
                         </tr>
-                        <?php endforeach;?>
-                    <?php endif;?>
-                </table>
+                        <?php if (isset($profiles)): ?>
+                            <?php foreach ($profiles as $p): ?>
+                            <tr>
+                                <td><?php echo $p->firstname; ?></td>
+                                <td><?php echo $p->lastname; ?></td>
+                                <td><?php echo $p->email; ?></td>
+                                <td><?php echo $p->phone; ?></td>
+                                <td><?php echo $p->ssn; ?></td>
+                                <td><button type="submit" name="delete" value="<?php echo $p->id; ?>"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <?php endforeach;?>
+                        <?php endif;?>
+                    </table>
+                </form>
             </div>
-
-
         </div>
     </div>
 </div>
