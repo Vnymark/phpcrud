@@ -3,6 +3,7 @@ namespace classes;
 
 class Database
 {
+    private $conn;
     private $db_keys = array();
     private $db_fields = array();
 
@@ -42,6 +43,31 @@ class Database
 
         if (!in_array($property, $this->db_fields)) {
             $this->db_fields[] = $property;
+        }
+    }
+
+    /**
+     * @return array[]
+     * @throws \Exception
+     */
+    public function fetchAll($table, $orderby){
+        try {
+            $this->conn = $this->connect();
+        } catch (\PDOException $e) {
+            echo 'Connection failed in the Profile class: ' . $e->getMessage();
+        }
+        if ($this->conn) {
+            $sql = "SELECT * FROM " . $table ." ORDER BY " . $orderby;
+
+            try {
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
+                echo 'Profiles fetched successfully';
+                return $result;
+            } catch (\PDOException $e) {
+                echo $e->getMessage();
+            }
         }
     }
 }

@@ -14,6 +14,9 @@ class Profile extends Database
         parent::set($property, $value);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function save() {
         try{
             $this->conn = $this->connect();
@@ -47,5 +50,4 @@ class Profile extends Database
             }
         }
     }
-
 }
