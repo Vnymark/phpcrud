@@ -15,7 +15,7 @@ class Database
     public function connect()
     {
         // Read parameters in the ini configuration file
-        $params = parse_ini_file('config/database.ini');
+        $params = parse_ini_file(CONFIG_DIR . 'database.ini');
         if ($params === false) {
             throw new \Exception("Error reading database configuration file");
         }
@@ -29,6 +29,7 @@ class Database
             $pdo = new \PDO($conStr, $params['user'], $params['password']);
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return $pdo;
+
         } catch (\PDOException $e){
             echo 'Connection failed in the Database class: '.$e->getMessage();
         }
@@ -63,7 +64,6 @@ class Database
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
-                echo 'Profiles fetched successfully';
                 return $result;
             } catch (\PDOException $e) {
                 echo $e->getMessage();

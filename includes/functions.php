@@ -1,4 +1,7 @@
 <?php
+
+define('CONFIG_DIR', dirname(__DIR__).'/config/');
+
 /*
  * Function for autoloading manually created classes.
  * Will check if a file for the required class exists and require it.
@@ -14,7 +17,7 @@ function classAutoload($class_name)
  * Make sure that the function for autoloading classes is included in the autoloader.
  */
 spl_autoload_register('classAutoload');
-
+require_once __DIR__ . '/../vendor/autoload.php';
 /*
  * Validates an e-mail address according to the built in php filter.
  */

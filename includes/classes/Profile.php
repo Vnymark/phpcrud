@@ -44,7 +44,7 @@ class Profile extends Database
 
             try{
                 $this->conn->exec($sql);
-                echo 'Profile saved successfully';
+                printf('<p class="success">Profilen sparades!</p>');
             } catch (\PDOException $e) {
                 echo $e->getMessage();
             }

@@ -1,0 +1,22 @@
+.col-md-auto.center {
+    text-align: center;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.success {
+    text-align: center;
+    color: forestgreen;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+tr.title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
