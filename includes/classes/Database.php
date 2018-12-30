@@ -31,7 +31,7 @@ class Database
             return $pdo;
 
         } catch (\PDOException $e){
-            echo 'Connection failed in the Database class: '.$e->getMessage();
+            echo 'Connection to the Database failed: '.$e->getMessage();
         }
     }
 
@@ -52,11 +52,7 @@ class Database
      * @throws \Exception
      */
     public function fetchAll($table, $orderby = null){
-        try {
-            $this->conn = $this->connect();
-        } catch (\PDOException $e) {
-            echo 'Connection failed in the Profile class: ' . $e->getMessage();
-        }
+        $this->conn = $this->connect();
 
         //If there is a parameter sent for "ORDER BY", this will handle it.
         if ($orderby != null){

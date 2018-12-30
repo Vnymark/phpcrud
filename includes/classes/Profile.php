@@ -18,11 +18,8 @@ class Profile extends Database
      * @throws \Exception
      */
     public function save() {
-        try{
-            $this->conn = $this->connect();
-        } catch (\PDOException $e){
-            echo 'Connection failed in the Profile class: ' . $e->getMessage();
-        }
+        $this->conn = $this->connect();
+
         if ($this->conn){
             $fname = $this->conn->quote($this->firstname);
             $lname = $this->conn->quote($this->lastname);

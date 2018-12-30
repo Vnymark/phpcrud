@@ -40,8 +40,12 @@
         if (isset($_POST['phone'])) {
             $profile->set('phone', $_POST['phone']);
         }
+        try {
+            $profile->save();
+        } catch (Exception $e){
+            echo 'Could not save the Profile:' . $e;
+        }
 
-        $profile->save();
         unset($_POST);
     } else {
         printf('<p class="error">%s</p>', implode('<br />', $errors));
