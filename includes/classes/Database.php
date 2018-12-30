@@ -1,7 +1,6 @@
 <?php
 namespace classes;
 
-
 class Database
 {
     private $db_keys = array();
@@ -30,7 +29,7 @@ class Database
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (\PDOException $e){
-            echo 'Connection failed: '.$e->getMessage();
+            echo 'Connection failed in the Database class: '.$e->getMessage();
         }
     }
 

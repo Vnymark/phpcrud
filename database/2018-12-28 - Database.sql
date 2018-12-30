@@ -8,7 +8,8 @@ CREATE TABLE `profiles` (
   `email` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `ssn` varchar(255) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `created_time` datetime NOT NULL
+  `created_date` date NOT NULL,
+  `created_time` time NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 

@@ -15,26 +15,36 @@ class Profile extends Database
     }
 
     public function save() {
-        $this->conn = $this->connect();
-        $fname = $this->conn->quote($this->firstname);
-        $lname = $this->conn->quote($this->lastname);
-        $email = $this->conn->quote($this->email);
-        $phone = $this->conn->quote($this->phone);
-        $ssn = $this->conn->quote($this->ssn);
+        try{
+            $this->conn = $this->connect();
+        } catch (\PDOException $e){
+            echo 'Connection failed in the Profile class: ' . $e->getMessage();
+        }
+        if ($this->conn){
+            $fname = $this->conn->quote($this->firstname);
+            $lname = $this->conn->quote($this->lastname);
+            $email = $this->conn->quote($this->email);
+            $phone = $this->conn->quote($this->phone);
+            $ssn = $this->conn->quote($this->ssn);
+            $date = $this->conn->quote(date('Y-m-d'));
+            $time = $this->conn->quote(date('H:i:s'));
 
 
-        $sql = "INSERT INTO profiles (firstname, lastname, email, phone, ssn, created_time) VALUES
+            $sql = "INSERT INTO profiles (firstname, lastname, email, phone, ssn, created_date, created_time) VALUES
 				(" . $fname . ",
 				" . $lname . ",
 				" . $email . ",
 				" . $phone . ",
 				" . $ssn . ",
-				'" . date('Y-m-d H:i:s') . "')";
-        try{
-            $this->conn->exec($sql);
-            echo 'Profile saved successfully';
-        } catch (\PDOException $e) {
-            echo $e->getMessage();
+				" . $date . ",
+				" . $time . ")";
+
+            try{
+                $this->conn->exec($sql);
+                echo 'Profile saved successfully';
+            } catch (\PDOException $e) {
+                echo $e->getMessage();
+            }
         }
     }
 
