@@ -51,14 +51,20 @@ class Database
      * @return array[]
      * @throws \Exception
      */
-    public function fetchAll($table, $orderby){
+    public function fetchAll($table, $orderby = null){
         try {
             $this->conn = $this->connect();
         } catch (\PDOException $e) {
             echo 'Connection failed in the Profile class: ' . $e->getMessage();
         }
+
+        //If there is a parameter sent for "ORDER BY", this will handle it.
+        if ($orderby != null){
+            $orderby = sprintf(' ORDER BY %s', $orderby);
+        }
+
         if ($this->conn) {
-            $sql = "SELECT * FROM " . $table ." ORDER BY " . $orderby;
+            $sql = "SELECT * FROM " . $table . $orderby;
 
             try {
                 $stmt = $this->conn->prepare($sql);
