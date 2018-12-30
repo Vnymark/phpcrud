@@ -43,7 +43,8 @@ class Profile extends Database
 				" . $time . ")";
 
             try{
-                $this->conn->exec($sql);
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
                 printf('<p class="success">Profilen sparades!</p>');
             } catch (\PDOException $e) {
                 echo $e->getMessage();

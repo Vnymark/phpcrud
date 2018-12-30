@@ -5,23 +5,28 @@
     $_POST['email'] = trim($_POST['email']);
 
     if (empty($_POST['firstname']) || !isValidName($_POST['firstname'])) {
-        $errors[] = 'Du måste ange förnamn';
+        $errors[] = 'Du måste ange ett giltigt förnamn!';
+        $errors[] = 'Exempel: "Arne" eller "Klas-Göran"';
     }
 
     if (empty($_POST['lastname']) || !isValidName($_POST['lastname'])) {
-        $errors[] = 'Du måste ange efternamn';
+        $errors[] = 'Du måste ange ett giltigt efternamn!';
+        $errors[] = 'Exempel: "Pettersson" eller "Ekman-Larsson."';
     }
 
     if (empty($_POST['email']) || !isValidEmail($_POST['email'])) {
-        $errors[] = 'Du måste ange en korrekt e-postadress';
+        $errors[] = 'Du måste ange en giltig e-postadress!';
+        $errors[] = 'Exempel: "example@example.com".';
     }
 
     if (isset($_POST['ssn']) && !isValidSSN($_POST['ssn'])) {
-        $errors[] = 'Du måste ange ett korrekt personnummer';
+        $errors[] = 'Du måste ange ett giltigt personnummer';
+        $errors[] = '12 siffror - Födelseår mellan 1900-2018 är godkända.';
     }
 
     if (isset($_POST['phone']) && !isValidPhone($_POST['phone'])) {
-        $errors[] = 'Du måste ange ett korrekt telefonnummer';
+        $errors[] = 'Du måste ange ett giltigt telefonnummer!';
+        $errors[] = 'Åtta till 12 siffror, inklusive eventuellt landsnummer (+46).';
     }
 
     if (empty($errors)) {

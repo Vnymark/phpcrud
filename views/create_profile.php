@@ -3,7 +3,7 @@
     <?php require __DIR__ . '/../controllers/profileController.php'; ?>
     <div class="row justify-content-md-center">
         <div class="col-md-auto center">
-                <h1>Profilinformation</h1>
+                <h1>Skapa profil</h1>
                 <div class="col-md-auto center">
                     <form action="index.php" method="POST">
                         <p>

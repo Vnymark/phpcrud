@@ -1,3 +1,8 @@
+body {
+    font-family: fa5-proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.5em;
+}
+
 .col-md-auto.center {
     text-align: center;
 }
@@ -6,17 +11,26 @@
     text-align: center;
     color: red;
     font-size: 1.5em;
-    font-weight: bold;
 }
 
 .success {
     text-align: center;
     color: forestgreen;
     font-size: 1.5em;
-    font-weight: bold;
 }
 
 tr.title {
     font-size: 1.5em;
     font-weight: bold;
+    white-space: nowrap;
+}
+
+.btn {
+    font-size: 1.2em;
+}
+
+.nav-item{
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    margin: 1px 5px 5px 5px;
 }
