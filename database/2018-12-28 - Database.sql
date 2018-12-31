@@ -11,7 +11,7 @@ CREATE TABLE `profiles` (
   `created_date` date NOT NULL,
   `created_time` time NOT NULL,
   `edited_date` date DEFAULT NULL,
-  `edited_time` time DEFAULT NULL,
+  `edited_time` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 

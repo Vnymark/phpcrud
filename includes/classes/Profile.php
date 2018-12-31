@@ -20,6 +20,7 @@ class Profile extends Database
      */
     public function save() {
         $this->conn = $this->connect();
+        $dt = new \DateTime("now", new \DateTimeZone("Europe/Stockholm"));
 
         if ($this->conn) {
             $fname = $this->conn->quote($this->firstname);
@@ -27,8 +28,8 @@ class Profile extends Database
             $email = $this->conn->quote($this->email);
             $phone = $this->conn->quote($this->phone);
             $ssn = $this->conn->quote($this->ssn);
-            $date = $this->conn->quote(date('Y-m-d'));
-            $time = $this->conn->quote(date('H:i:s'));
+            $date = $this->conn->quote($dt->format('Y-m-d'));
+            $time = $this->conn->quote($dt->format('H:i:s'));
 
 
             $sql = "INSERT INTO profiles (firstname, lastname, email, phone, ssn, created_date, created_time) VALUES
@@ -55,6 +56,7 @@ class Profile extends Database
      */
     public function edit() {
         $this->conn = $this->connect();
+        $dt = new \DateTime("now", new \DateTimeZone("Europe/Stockholm"));
 
         if ($this->conn) {
             $id =  $this->conn->quote($this->id);
@@ -63,8 +65,8 @@ class Profile extends Database
             $email = $this->conn->quote($this->email);
             $phone = $this->conn->quote($this->phone);
             $ssn = $this->conn->quote($this->ssn);
-            $date = $this->conn->quote(date('Y-m-d'));
-            $time = $this->conn->quote(date('H:i:s'));
+            $date = $this->conn->quote($dt->format('Y-m-d'));
+            $time = $this->conn->quote($dt->format('H:i:s'));
 
 
             $sql = "UPDATE profiles SET 
