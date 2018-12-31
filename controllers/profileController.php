@@ -1,4 +1,4 @@
-<?php if (isset($_POST['save'])) {
+<?php if (isset($_POST['save']) || isset($_POST['edit'])) {
     $errors = array();
     $_POST['firstname'] = trim($_POST['firstname']);
     $_POST['lastname'] = trim($_POST['lastname']);
@@ -31,6 +31,9 @@
 
     if (empty($errors)) {
         $profile = new classes\Profile();
+        if (isset($_POST['id'])) {
+            $profile->set('id', $_POST['id']);
+        }
         $profile->set('firstname',$_POST['firstname']);
         $profile->set('lastname', $_POST['lastname']);
         $profile->set('email', $_POST['email']);
@@ -40,23 +43,59 @@
         if (isset($_POST['phone'])) {
             $profile->set('phone', $_POST['phone']);
         }
-        try {
-            $profile->save();
-        } catch (Exception $e){
-            echo 'Could not save the Profile:' . $e;
-        }
+        if (isset($_POST['id'])) {
+            try {
+                $profile->edit();
+            } catch (Exception $e) {
+                echo 'Could not edit the Profile:' . $e;
+            }
+            unset($_POST);
 
-        unset($_POST);
+            //To be able to fetch the Profile that was being edited.
+            $_POST['fetch'] = $profile->id;
+            require 'profileController.php';
+        } else {
+            try {
+                $profile->save();
+            } catch (Exception $e) {
+                echo 'Could not save the Profile:' . $e;
+            }
+            unset($_POST);
+        }
     } else {
         printf('<p class="error">%s</p>', implode('<br />', $errors));
+        // To be able to fetch the Profile we're editing in case of error.
+        if (isset($_POST['id'])) {
+            $_POST['edit'] = $_POST['id'];
+        }
     }
-} else if (isset($_POST['delete'])){
-    $profile = new classes\Profile();
+}
+
+else if (isset($_POST['delete'])) {
+    $database = new classes\Database();
     try {
-        $profile->delete('profiles', $_POST['delete']);
+        $database->delete('profiles', intval($_POST['delete']));
     } catch (Exception $e){
         echo 'Could not delete the Profile:' . $e;
     }
-
 }
+
+else if (isset($_POST['fetch'])) {
+    $database = new classes\Database();
+    try {
+        $p = $database->fetch('profiles', intval($_POST['fetch']));
+    } catch (Exception $e) {
+        echo 'Could not fetch the Profile:' . $e;
+    }
+}
+
+if (isset($_POST['edit'])) {
+    $database = new classes\Database();
+    try {
+        $p = $database->fetch('profiles', intval($_POST['edit']));
+    } catch (Exception $e) {
+        echo 'Could not fetch the Profile:' . $e;
+    }
+}
+
 ?>

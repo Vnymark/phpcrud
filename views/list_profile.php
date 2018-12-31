@@ -27,6 +27,7 @@
                             <td>Telefonnummer</td>
                             <td>Personnummer</td>
                             <td></td>
+                            <td></td>
                         </tr>
                         <?php if (isset($profiles)): ?>
                             <?php foreach ($profiles as $p): ?>
@@ -36,6 +37,7 @@
                                 <td><?php echo $p->email; ?></td>
                                 <td><?php echo $p->phone; ?></td>
                                 <td><?php echo $p->ssn; ?></td>
+                                <td><button type="submit" name="fetch" value="<?php echo $p->id; ?>"><i class="fas fa-pen"></i></button></button></td>
                                 <td><button type="submit" name="delete" value="<?php echo $p->id; ?>"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             <?php endforeach;?>

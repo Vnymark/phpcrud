@@ -93,4 +93,25 @@ class Database
             }
         }
     }
+
+    /**
+     * @throws \Exception
+     * return array[]
+     */
+    public function fetch($table, $id) {
+        $this->conn = $this->connect();
+
+        if ($this->conn) {
+            $sql = "SELECT * FROM " . $table . " WHERE `id` = " . $id;
+
+            try {
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+                return $result;
+            } catch (\PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
 }
