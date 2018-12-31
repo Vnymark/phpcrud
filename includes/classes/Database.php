@@ -19,7 +19,7 @@ class Database
         if ($params === false) {
             throw new \Exception("Error reading database configuration file");
         }
-        try{
+        try {
             // Connect to the database
             $conStr = sprintf("mysql:host=%s;dbname=%s;charset=%s",
                 $params['host'],
@@ -30,7 +30,7 @@ class Database
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return $pdo;
 
-        } catch (\PDOException $e){
+        } catch (\PDOException $e) {
             echo 'Connection to the Database failed: '.$e->getMessage();
         }
     }
@@ -51,11 +51,11 @@ class Database
      * @return array[]
      * @throws \Exception
      */
-    public function fetchAll($table, $orderby = null){
+    public function fetchAll($table, $orderby = null) {
         $this->conn = $this->connect();
 
         //If there is a parameter sent for "ORDER BY", this will handle it.
-        if ($orderby != null){
+        if ($orderby != null) {
             $orderby = sprintf(' ORDER BY %s', $orderby);
         }
 
@@ -76,15 +76,13 @@ class Database
     /**
      * @throws \Exception
      */
-    public function delete($table, $id){
+    public function delete($table, $id) {
         $this->conn = $this->connect();
 
         if ($this->conn) {
-            try {
-                // sql to delete a record
-                $sql = "DELETE FROM " . $table . " WHERE id=" . $id;
+            $sql = "DELETE FROM " . $table . " WHERE id=" . $id;
 
-                // use exec() because no results are returned
+            try {
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute();
                 printf('<p class="success">Profilen togs bort!</p>');

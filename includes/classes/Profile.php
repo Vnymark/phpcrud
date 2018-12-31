@@ -21,7 +21,7 @@ class Profile extends Database
     public function save() {
         $this->conn = $this->connect();
 
-        if ($this->conn){
+        if ($this->conn) {
             $fname = $this->conn->quote($this->firstname);
             $lname = $this->conn->quote($this->lastname);
             $email = $this->conn->quote($this->email);
@@ -40,7 +40,7 @@ class Profile extends Database
 				" . $date . ",
 				" . $time . ")";
 
-            try{
+            try {
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute();
                 printf('<p class="success">Profilen sparades!</p>');
