@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `varbi` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci;
-USE `varbi`;
+CREATE DATABASE IF NOT EXISTS `phpcrud` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci;
+USE `phpcrud`;
 
 CREATE TABLE `profiles` (
   `id` int(255) UNSIGNED NOT NULL,

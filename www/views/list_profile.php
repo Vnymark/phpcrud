@@ -1,10 +1,9 @@
 <div id="content">
+    <?php require_once __DIR__ . '/../includes/functions.php'; ?>
+    <?php require __DIR__ . '/../controllers/profileController.php'; ?>
     <div class="row justify-content-md-center">
         <div class="col-md-auto center">
-            <?php require_once __DIR__ . '/../includes/functions.php'; ?>
-            <?php require __DIR__ . '/../controllers/profileController.php'; ?>
             <?php
-
             /**
              * @throws Exception
              * Can send order by as second paramenter to fetchAll().
