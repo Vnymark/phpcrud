@@ -19,10 +19,6 @@ docker-compose up -d
 
 You can access it via `http://localhost`.
 
-## PHP
-
-The installed version of PHP is 7.2
-
 ## phpMyAdmin
 
 phpMyAdmin is configured to run on port 8080. Use following default credentials.
