@@ -27,3 +27,9 @@ http://localhost:8080/
 username: root  
 password: tiger
 
+## TODO
+
+Add Composer to Docker so the vendor folder don't need to be commited.
+Update PDO to avoid SQL-injection.
+Better class/model structure.
+Merge config folder to outside the hosted folder, to avoid database config won't be browsable.
