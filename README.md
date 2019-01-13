@@ -31,4 +31,4 @@ password: tiger
 
 * Add Composer to Docker so the vendor folder don't need to be commited.
 * Better class/model structure.
-* Merge config folder to outside the hosted folder, to avoid database config won't be browsable.
+* Merge the configs folder to one folder outside the web hosted folder, to remove the database from being browsable.
