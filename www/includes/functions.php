@@ -21,22 +21,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * Validates an e-mail address according to the built in php filter.
  */
 function isValidEmail($email) {
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return false;
-    } else {
-        return true;
-    }
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 /*
  * Validates name with letters between a to ö.
  * Allows double names separated with hyphen.
  */
 function isValidName($name) {
-    if (!preg_match("/^[a-öA-Ö]*([-]?[a-öA-Ö])*$/", $name)) {
-        return false;
-    } else {
-        return true;
-    }
+    return preg_match("/^[a-öA-Ö]*([-]?[a-öA-Ö])*$/", $name);
 }
 
 /*
@@ -52,11 +44,7 @@ function isValidSSN($ssn) {
         $month = substr($ssn, 4, 2);
         $date = substr($ssn, 6, 2);
 
-        if (!checkdate($month, $date, $year)) {
-            return false;
-        } else {
-            return true;
-        }
+        return checkdate($month, $date, $year);
     }
 }
 
@@ -67,9 +55,5 @@ function isValidSSN($ssn) {
  * If the "second" digit is anything else than a 7, it will allow six to eight following digits. - For a total of 8 to 10 digits.
  */
 function isValidPhone($phone) {
-    if (!preg_match("/^((0|([\+][4][4-8]))((7\d{8}?)|([^7]\d{6,8})))$/", $phone)) {
-        return false;
-    } else {
-        return true;
-    }
+    return preg_match("/^((0|([\+][4][4-8]))((7\d{8}?)|([^7]\d{6,8})))$/", $phone);
 }
