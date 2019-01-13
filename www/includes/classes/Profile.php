@@ -23,26 +23,18 @@ class Profile extends Database
         $dt = new \DateTime("now", new \DateTimeZone("Europe/Stockholm"));
 
         if ($this->conn) {
-            $fname = $this->conn->quote($this->firstname);
-            $lname = $this->conn->quote($this->lastname);
-            $email = $this->conn->quote($this->email);
-            $phone = $this->conn->quote($this->phone);
-            $ssn = $this->conn->quote($this->ssn);
-            $date = $this->conn->quote($dt->format('Y-m-d'));
-            $time = $this->conn->quote($dt->format('H:i:s'));
-
-
             $sql = "INSERT INTO profiles (firstname, lastname, email, phone, ssn, created_date, created_time) VALUES
-				(" . $fname . ",
-				" . $lname . ",
-				" . $email . ",
-				" . $phone . ",
-				" . $ssn . ",
-				" . $date . ",
-				" . $time . ")";
+				(?, ?, ?, ?, ?, ?, ?)";
 
             try {
                 $stmt = $this->conn->prepare($sql);
+                $stmt->bindParam(1, $this->firstname, \PDO::PARAM_STR);
+                $stmt->bindParam(2, $this->lastname, \PDO::PARAM_STR);
+                $stmt->bindParam(3, $this->email, \PDO::PARAM_STR);
+                $stmt->bindParam(4, $this->phone, \PDO::PARAM_STR);
+                $stmt->bindParam(5, $this->ssn, \PDO::PARAM_STR);
+                $stmt->bindParam(6, $dt->format('Y-m-d'), \PDO::PARAM_STR);
+                $stmt->bindParam(7, $dt->format('H:i:s'), \PDO::PARAM_STR);
                 $stmt->execute();
                 printf('<p class="success">Profilen sparades!</p>');
             } catch (\PDOException $e) {
@@ -59,28 +51,27 @@ class Profile extends Database
         $dt = new \DateTime("now", new \DateTimeZone("Europe/Stockholm"));
 
         if ($this->conn) {
-            $id =  $this->conn->quote($this->id);
-            $fname = $this->conn->quote($this->firstname);
-            $lname = $this->conn->quote($this->lastname);
-            $email = $this->conn->quote($this->email);
-            $phone = $this->conn->quote($this->phone);
-            $ssn = $this->conn->quote($this->ssn);
-            $date = $this->conn->quote($dt->format('Y-m-d'));
-            $time = $this->conn->quote($dt->format('H:i:s'));
-
 
             $sql = "UPDATE profiles SET 
-                firstname = " . $fname . ",
-                lastname = " . $lname . ",
-                email = " . $email . ",
-                phone = " . $phone . ",
-                ssn = " . $ssn . ",
-                edited_date = " . $date . ",
-                edited_time = " . $time . "
-			    WHERE `id` = " . $id;
+                firstname = ?,
+                lastname = ?,
+                email = ?,
+                phone = ?,
+                ssn = ?,
+                edited_date = ?,
+                edited_time = ?
+			    WHERE `id` = ?";
 
             try {
                 $stmt = $this->conn->prepare($sql);
+                $stmt->bindParam(1, $this->firstname, \PDO::PARAM_STR);
+                $stmt->bindParam(2, $this->lastname, \PDO::PARAM_STR);
+                $stmt->bindParam(3, $this->email, \PDO::PARAM_STR);
+                $stmt->bindParam(4, $this->phone, \PDO::PARAM_STR);
+                $stmt->bindParam(5, $this->ssn, \PDO::PARAM_STR);
+                $stmt->bindParam(6, $dt->format('Y-m-d'), \PDO::PARAM_STR);
+                $stmt->bindParam(7, $dt->format('H:i:s'), \PDO::PARAM_STR);
+                $stmt->bindParam(8, $this->id, \PDO::PARAM_INT);
                 $stmt->execute();
                 printf('<p class="success">Profilen ändrades!</p>');
             } catch (\PDOException $e) {
