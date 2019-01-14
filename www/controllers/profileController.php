@@ -72,27 +72,27 @@
 }
 
 else if (isset($_POST['delete'])) {
-    $database = new classes\Database();
+    $model = new classes\Model();
     try {
-        $database->delete('profiles', intval($_POST['delete']));
+        $model->delete('profiles', intval($_POST['delete']));
     } catch (Exception $e){
         echo 'Could not delete the Profile:' . $e;
     }
 }
 
 else if (isset($_POST['fetch'])) {
-    $database = new classes\Database();
+    $model = new classes\Model();
     try {
-        $p = $database->fetch('profiles', intval($_POST['fetch']));
+        $p = $model->fetch('profiles', intval($_POST['fetch']));
     } catch (Exception $e) {
         echo 'Could not fetch the Profile:' . $e;
     }
 }
 
 if (isset($_POST['edit'])) {
-    $database = new classes\Database();
+    $model = new classes\Model();
     try {
-        $p = $database->fetch('profiles', intval($_POST['edit']));
+        $p = $model->fetch('profiles', intval($_POST['edit']));
     } catch (Exception $e) {
         echo 'Could not fetch the Profile:' . $e;
     }
