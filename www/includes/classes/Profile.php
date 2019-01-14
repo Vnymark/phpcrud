@@ -1,15 +1,16 @@
 <?php
 namespace classes;
 
-class Profile extends Database
+class Profile extends Model
 {
-    private $conn;
     public $id;
     public $firstname;
     public $lastname;
     public $email;
     public $phone;
     public $ssn;
+
+
 
     public function set($property, $value) {
         parent::set($property, $value);
@@ -19,15 +20,15 @@ class Profile extends Database
      * @throws \Exception
      */
     public function save() {
-        $this->conn = $this->connect();
+        $conn = Database::getInstance();
         $dt = new \DateTime("now", new \DateTimeZone("Europe/Stockholm"));
 
-        if ($this->conn) {
+        if ($conn) {
             $sql = "INSERT INTO profiles (firstname, lastname, email, phone, ssn, created_date, created_time) VALUES
 				(?, ?, ?, ?, ?, ?, ?)";
 
             try {
-                $stmt = $this->conn->prepare($sql);
+                $stmt = $conn->prepare($sql);
                 $stmt->bindParam(1, $this->firstname, \PDO::PARAM_STR);
                 $stmt->bindParam(2, $this->lastname, \PDO::PARAM_STR);
                 $stmt->bindParam(3, $this->email, \PDO::PARAM_STR);
@@ -37,6 +38,7 @@ class Profile extends Database
                 $stmt->bindParam(7, $dt->format('H:i:s'), \PDO::PARAM_STR);
                 $stmt->execute();
                 printf('<p class="success">Profilen sparades!</p>');
+                printf('<p class="success">'. $this->firstname . '</p>');
             } catch (\PDOException $e) {
                 echo $e->getMessage();
             }
@@ -47,10 +49,10 @@ class Profile extends Database
      * @throws \Exception
      */
     public function edit() {
-        $this->conn = $this->connect();
+        $conn = Database::getInstance();
         $dt = new \DateTime("now", new \DateTimeZone("Europe/Stockholm"));
 
-        if ($this->conn) {
+        if ($conn) {
 
             $sql = "UPDATE profiles SET 
                 firstname = ?,
@@ -63,7 +65,7 @@ class Profile extends Database
 			    WHERE `id` = ?";
 
             try {
-                $stmt = $this->conn->prepare($sql);
+                $stmt = $conn->prepare($sql);
                 $stmt->bindParam(1, $this->firstname, \PDO::PARAM_STR);
                 $stmt->bindParam(2, $this->lastname, \PDO::PARAM_STR);
                 $stmt->bindParam(3, $this->email, \PDO::PARAM_STR);

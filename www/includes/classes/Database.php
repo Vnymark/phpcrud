@@ -1,19 +1,15 @@
 <?php
 namespace classes;
 
-class Database
+class Database extends \PDO
 {
-    private $conn;
-    private $db_keys = array();
-    private $db_fields = array();
+    private static $instance = null;
 
     /**
      * Connect to the database and return an instance of \PDO object
-     * @return \PDO
      * @throws \Exception
      */
-    public function connect()
-    {
+    private function __construct() {
         // Read parameters in the ini configuration file
         $params = parse_ini_file(CONFIG_DIR . 'database.ini');
         if ($params === false) {
@@ -26,90 +22,24 @@ class Database
                 $params['database'],
                 $params['charset']);
 
-            $pdo = new \PDO($conStr, $params['user'], $params['password']);
-            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            return $pdo;
+            parent::__construct($conStr, $params['user'], $params['password']);
 
         } catch (\PDOException $e) {
             echo 'Connection to the Database failed: '.$e->getMessage();
         }
     }
 
-    public function set($property, $value) {
-        $this->$property = $value;
-
-        if (!in_array($property, $this->db_keys)) {
-            $this->db_keys[] = $property;
-        }
-
-        if (!in_array($property, $this->db_fields)) {
-            $this->db_fields[] = $property;
-        }
-    }
-
     /**
-     * @return array[]
+     * If a connection to the database is available return that, else create a new connection.
      * @throws \Exception
      */
-    public function fetchAll($table, $orderby = null) {
-        $this->conn = $this->connect();
-
-        //If there is a parameter sent for "ORDER BY", this will handle it.
-        if ($orderby != null) {
-            $orderby = sprintf(' ORDER BY %s', $orderby);
+    public static function getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new Database();
         }
 
-        if ($this->conn) {
-            $sql = "SELECT * FROM " . $table . $orderby;
-
-            try {
-                $stmt = $this->conn->prepare($sql);
-                $stmt->execute();
-                $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
-                return $result;
-            } catch (\PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
+        return self::$instance;
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function delete($table, $id) {
-        $this->conn = $this->connect();
 
-        if ($this->conn) {
-            $sql = "DELETE FROM " . $table . " WHERE id=" . $id;
-
-            try {
-                $stmt = $this->conn->prepare($sql);
-                $stmt->execute();
-                printf('<p class="success">Profilen togs bort!</p>');
-            } catch (\PDOException $e) {
-                echo $sql . "<br>" . $e->getMessage();
-            }
-        }
-    }
-
-    /**
-     * @throws \Exception
-     * return array[]
-     */
-    public function fetch($table, $id) {
-        $this->conn = $this->connect();
-
-        if ($this->conn) {
-            $sql = "SELECT * FROM " . $table . " WHERE `id` = " . $id;
-
-            try {
-                $stmt = $this->conn->prepare($sql);
-                $stmt->execute();
-                $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-                return $result;
-            } catch (\PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-    }
 }
