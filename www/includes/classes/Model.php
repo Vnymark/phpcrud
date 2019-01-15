@@ -23,7 +23,7 @@ class Model
      * @return array[]
      * @throws \Exception
      */
-    public function fetchAll($table, $orderby = null) {
+    public function fetchAll($table, $orderby) {
         $conn = Database::getInstance();
 
         //If there is a parameter sent for "ORDER BY", this will handle it.
@@ -39,7 +39,6 @@ class Model
                 $stmt->execute();
                 $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
                 return $result;
-                printf('<p class="success">Profilen laddades in!</p>');
             } catch (\PDOException $e) {
                 echo $e->getMessage();
             }

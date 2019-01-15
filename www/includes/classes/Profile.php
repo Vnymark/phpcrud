@@ -16,6 +16,19 @@ class Profile extends Model
         parent::set($property, $value);
     }
 
+    public function fetch($table, $id) {
+        return parent::fetch($table, $id);
+
+    }
+
+    public function fetchAll($table, $orderby = null) {
+        return parent::fetchAll($table, $orderby);
+    }
+
+    public function delete($table, $id) {
+        parent::delete($table, $id);
+    }
+
     /**
      * @throws \Exception
      */
